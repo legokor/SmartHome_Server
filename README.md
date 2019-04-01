@@ -27,13 +27,15 @@ A szerverhez tartozni fog egy adatbázis is, amelyben a node-okról tároljuk el
 
 A táblák sémái az alábbiak:
 
-Az esp-k adatait összefogó fő tábla:      
+Az esp-k adatait összefogó fő tábla:    
+
 | #ID | IP | Type | Last Seen |  
 |---|---|---|---|  
 | Kulcs | IP címe a esp-nek  | Milyen típusú szenzor/beavatkozó | Mikor volt utoljára aktív státuszban |  
 
 
 Az esp adatait historikusan tároló tábla:  
+
 | #ID | TimeStamp | Data |  
 |---|---|---|  
 |   |   |   |
