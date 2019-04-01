@@ -38,4 +38,4 @@ Az esp adatait historikusan tároló tábla:
 
 | #ID | TimeStamp | Data |  
 |---|---|---|  
-|   |   |   |
+| Kulcs | Mikori adat | Maga az adat |
