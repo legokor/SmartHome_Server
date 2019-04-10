@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebServer.Models;
+using WebServer.Services;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebServer.Controllers
@@ -13,10 +14,12 @@ namespace WebServer.Controllers
     public class ESPEntityController : ControllerBase
     {
         private readonly ESPContext _context;
+        private UdpRequestService udpService;
 
         public ESPEntityController(ESPContext context)
         {
             _context = context;
+            udpService = new UdpRequestService();
 
             /*if(_context.ESPs.Count() == 0)
             {
@@ -60,7 +63,9 @@ namespace WebServer.Controllers
         [HttpPost]
         public IActionResult userRequest([FromForm]OnDemandRequest onDemandRequest)
         {
-
+            var entity =_context.ESPs.Where(e => e.Name == onDemandRequest.nodeId).FirstOrDefault();
+            bool result = udpService.SendUdp(onDemandRequest, entity);
+            return StatusCode(200);
         }
     }
 }
