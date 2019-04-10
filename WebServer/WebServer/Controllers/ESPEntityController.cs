@@ -56,5 +56,11 @@ namespace WebServer.Controllers
 
             return CreatedAtAction(nameof(GetESPDataItem), new { id = item.Id }, item);
         }
+
+        [HttpPost]
+        public IActionResult userRequest([FromForm]OnDemandRequest onDemandRequest)
+        {
+
+        }
     }
 }
