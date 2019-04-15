@@ -64,7 +64,8 @@ namespace WebServer.Controllers
         public IActionResult userRequest([FromForm]OnDemandRequest onDemandRequest)
         {
             var entity =_context.ESPs.Where(e => e.Name == onDemandRequest.nodeId).FirstOrDefault();
-            bool result = udpService.SendUdp(onDemandRequest, entity);
+            string result = udpService.SendUdp(onDemandRequest, entity);
+            Console.Write("receive data: " + result);
             return StatusCode(200);
         }
     }
