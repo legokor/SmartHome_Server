@@ -19,13 +19,18 @@ namespace WebServer.Controllers
         public ESPEntityController(ESPContext context)
         {
             _context = context;
+            
             udpService = new UdpRequestService();
 
-            /*if(_context.ESPs.Count() == 0)
+            if(_context.ESPs.Count() == 0)
             {
-                _context.ESPs.Add(new ESPEntity { Id = 1 });
+                ESPEntity test = new ESPEntity();
+                test.Id = 1;
+                test.IPAddress = "192.168.137.37";
+                test.Name = "Node_1";
+                _context.Add(test);
                 _context.SaveChanges();
-            }*/
+            }
         }
 
 
@@ -51,22 +56,23 @@ namespace WebServer.Controllers
         }
 
         // POST: api/ESPEntity
-        [HttpPost]
+        /*[HttpPost]
         public async Task<ActionResult<ESPEntity>> PostESPDataItem([FromForm]ESPEntity item)
         {
             _context.ESPs.Add(item);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetESPDataItem), new { id = item.Id }, item);
-        }
+        }*/
 
         [HttpPost]
-        public IActionResult userRequest([FromForm]OnDemandRequest onDemandRequest)
+        public async Task<ActionResult<OnDemandRequest>> userRequest([FromForm]OnDemandRequest onDemandRequest)
         {
             var entity =_context.ESPs.Where(e => e.Name == onDemandRequest.nodeId).FirstOrDefault();
             string result = udpService.SendUdp(onDemandRequest, entity);
             Console.Write("receive data: " + result);
-            return StatusCode(200);
+            //return StatusCode(200);
+            return CreatedAtAction(nameof(GetESPDataItem), StatusCode(200));
         }
     }
 }

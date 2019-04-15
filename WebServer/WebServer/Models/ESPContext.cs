@@ -10,7 +10,7 @@ namespace WebServer.Models
     {
         public ESPContext(DbContextOptions<ESPContext> options) : base(options)
         {
-
+            
         }
 
         public DbSet<ESPEntity> ESPs { get; set; }
